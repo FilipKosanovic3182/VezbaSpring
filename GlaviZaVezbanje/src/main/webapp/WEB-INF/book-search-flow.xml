@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<flow xmlns="http://www.springframework.org/schema/webflow" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+        http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+    <var name="loginBean" class="com.it355.webflow.DodavanjeRezervacijeBean" />
+    <view-state id="displayLoginView" view="JSP/form_dodavanje_rezervacije.jsp" model="loginBean"> 
+        <transition on="performRezervacija" to="performRezervacijaAction" /> 
+    </view-state>
+    <action-state id="performRezervacijaAction"> 
+        <evaluate expression="DodavanjeRezervacijeService.validateRezervacije(loginBean)" />
+        <transition on="true" to="displaySuccess" /> 
+        <transition on="false" to="displayError" />
+    </action-state>
+    <view-state id="displaySuccess" view="JSP/prikazDodateRezervacije.jsp" model=" "/>
+    <view-state id="displayError" view="JSP/403.jsp" /> 
+</flow>
